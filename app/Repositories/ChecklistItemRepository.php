@@ -12,7 +12,7 @@ class ChecklistItemRepository implements ChecklistItemRepositoryInterface
         return ChecklistItem::all();
     }
 
-    public function getById(string $id) : ChecklistItem
+    public function getById(string $id)
     {
         $query = ChecklistItem::query();
         $query->where('id','=',$id);
