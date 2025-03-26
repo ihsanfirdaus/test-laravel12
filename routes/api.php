@@ -14,14 +14,14 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/register', [UserController::class, 'register']);
 
-// Route::middleware([JwtMiddleware::class])->group(function() {
-// });
-Route::get('/checklist', [ChecklistController::class, 'index']);
-Route::post('/checklist', [ChecklistController::class, 'create']);
-Route::delete('/checklist/{id}', [ChecklistController::class, 'delete']);
-Route::get('/checklist/{id}/item', [ChecklistController::class, 'show']);
-Route::post('/checklist/{id}/item', [ChecklistController::class, 'createItem']);
-Route::get('/checklist/{id}/item/{itemId}', [ChecklistController::class, 'showItem']);
-Route::put('/checklist/{id}/item/{itemId}', [ChecklistController::class, 'updateItem']);
-Route::delete('/checklist/{id}/item/{itemId}', [ChecklistController::class, 'deleteItem']);
-Route::put('/checklist/{id}/item/rename/{itemId}', [ChecklistController::class, 'renameItem']);
+Route::middleware([JwtMiddleware::class])->group(function() {
+    Route::get('/checklist', [ChecklistController::class, 'index']);
+    Route::post('/checklist', [ChecklistController::class, 'create']);
+    Route::delete('/checklist/{id}', [ChecklistController::class, 'delete']);
+    Route::get('/checklist/{id}/item', [ChecklistController::class, 'show']);
+    Route::post('/checklist/{id}/item', [ChecklistController::class, 'createItem']);
+    Route::get('/checklist/{id}/item/{itemId}', [ChecklistController::class, 'showItem']);
+    Route::put('/checklist/{id}/item/{itemId}', [ChecklistController::class, 'updateItem']);
+    Route::delete('/checklist/{id}/item/{itemId}', [ChecklistController::class, 'deleteItem']);
+    Route::put('/checklist/{id}/item/rename/{itemId}', [ChecklistController::class, 'renameItem']);
+});
