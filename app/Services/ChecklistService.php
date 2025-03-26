@@ -48,7 +48,9 @@ class ChecklistService implements ChecklistServiceInterface
     {
         $data['checklist_id'] = $id;
 
-        return $this->checklistItemRepository->create($data);
+        $this->checklistItemRepository->create($data);
+
+        return $this->getById($id);
     }
    
     public function updateStatusByItemId(string $id, string $itemId)
