@@ -25,7 +25,10 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('username', 'password');
+        $credentials = [
+            'username' => $request->json('username'), 
+            'password' => $request->json('password')
+        ];
 
         try {
             if (! $token = JWTAuth::attempt($credentials)) {
@@ -40,7 +43,7 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->json()->all(), [
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
             'username' => 'required|string|max:255|unique:users'
@@ -51,7 +54,7 @@ class UserController extends Controller
         }
 
         try {
-            $user = $this->userService->registerUser($request->all());
+            $user = $this->userService->registerUser($request->json()->all());
 
             $token = JWTAuth::fromUser($user);
 
@@ -70,7 +73,7 @@ class UserController extends Controller
     {
         try {
             if (! $user = JWTAuth::parseToken()->authenticate()) {
-                return response()->json(['user_not_found'], 404);
+                return $this->errorResponse('User not found', 404);
             }
         } catch (TokenExpiredException $e) {
             return $this->errorResponse('Token expired', $e->getCode());
