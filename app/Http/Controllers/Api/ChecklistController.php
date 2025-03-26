@@ -125,12 +125,17 @@ class ChecklistController extends Controller
    
     public function renameItem(Request $request, string $id, string $itemId)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'item_name' => 'required',
-        // ]);
+        $validator = Validator::make($request->all(), [
+            'item_name' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->validationErrorResponse($validator->errors());
+        }
+
 
         try {
-            $data = $this->checklistService->renameItemByItemId($id, $itemId, $request->all());
+            $data = $this->checklistService->renameItemByItemId($id, $itemId, $validator->validated());
             
             return $this->successReponse($data, 'Data berhasil diupdate');
         } catch (\Exception $e) {
