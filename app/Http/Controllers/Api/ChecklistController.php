@@ -32,7 +32,7 @@ class ChecklistController extends Controller
 
     public function create(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->json()->all(), [
             'name' => 'required',
         ]);
 
@@ -41,7 +41,7 @@ class ChecklistController extends Controller
         }
 
         try {
-            $data = $this->checklistService->create($request->all());
+            $data = $this->checklistService->create($request->json()->all());
 
             return $this->successReponse($data, 'Data berhasil disimpan', 201);
         } catch (\Exception $e) {
@@ -73,7 +73,7 @@ class ChecklistController extends Controller
 
     public function createItem(string $id, Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->json()->all(), [
             'item_name' => 'required',
         ]);
 
@@ -82,7 +82,7 @@ class ChecklistController extends Controller
         }
 
         try {
-            $data = $this->checklistService->createItemById($id, $request->all());
+            $data = $this->checklistService->createItemById($id, $request->json()->all());
 
             return $this->successReponse($data, 'Data item berhasil disimpan', 201);
         } catch (\Exception $e) {
@@ -125,14 +125,13 @@ class ChecklistController extends Controller
    
     public function renameItem(Request $request, string $id, string $itemId)
     {
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->json()->all(), [
             'item_name' => 'required',
         ]);
 
         if ($validator->fails()) {
             return $this->validationErrorResponse($validator->errors());
         }
-
 
         try {
             $data = $this->checklistService->renameItemByItemId($id, $itemId, $validator->validated());

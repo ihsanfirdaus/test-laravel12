@@ -25,5 +25,3 @@ Route::get('/checklist/{id}/item/{itemId}', [ChecklistController::class, 'showIt
 Route::put('/checklist/{id}/item/{itemId}', [ChecklistController::class, 'updateItem']);
 Route::delete('/checklist/{id}/item/{itemId}', [ChecklistController::class, 'deleteItem']);
 Route::put('/checklist/{id}/item/rename/{itemId}', [ChecklistController::class, 'renameItem']);
-// Route::get('/posts', [PostController::class, 'index']);
-// Route::post('/posts', [PostController::class, 'create']);

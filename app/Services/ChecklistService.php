@@ -57,8 +57,6 @@ class ChecklistService implements ChecklistServiceInterface
     
     public function renameItemByItemId(string $id, string $itemId, array $data)
     {
-        // $checklistItem = $this->checklistItemRepository->getById($itemId);
-
         return $this->checklistItemRepository->update($itemId, $data);
     }
 
